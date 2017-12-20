@@ -12,4 +12,3 @@ provision/basics.sh
 provision/database.sh
 provision/php.sh
 provision/vim.sh
-meal-picture/vendor
