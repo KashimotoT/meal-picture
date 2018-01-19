@@ -11,6 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', 'welcome');
+
+//画像投稿ページ
+Route::resource('upload_images', 'PhotosController');
