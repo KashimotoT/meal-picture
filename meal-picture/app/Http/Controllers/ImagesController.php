@@ -4,21 +4,18 @@ namespace App\Http\Controllers;
 use Intervention\Image\Facades\Image;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Photo;
 
-class PhotosController extends Controller
+class ImagesController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //show picuter's list
-        $photo = Photo::latest('ctreated_at')->paginate(10);
-        return View('photos.create')->with('photos', $photo);
-    }
+    // public function index()
+    // {
+    //     //
+    // }
 
     /**
      * Show the form for creating a new resource.
@@ -27,7 +24,7 @@ class PhotosController extends Controller
      */
     public function create()
     {
-        return View('photos.create');
+        return View('images.create');
     }
 
     /**
@@ -39,38 +36,29 @@ class PhotosController extends Controller
     public function store(Request $request)
     {
         // //get all requests
-        $input = $request->all();
+        // $input = $request->all();
         //
         // //get original name
-        $fileName = $input['fileName']->getClientOriginalName();
+        // $fileName = $input['fileName']->getClientOriginalName();
 
-        // //get request of fileName
         $file = $request->file('fileName');
-        //
-        // //give a randam fileName？
-        // $file_path = $file->store('/photos');
+        $file_path = $file->store('/images');
 
         //get path
         $image = Image::make($file->getRealPath());
 
         //resize image
-        $image->resize(100, null, function ($constraint) {
+        $image->resize(200, null, function ($constraint) {
             $constraint->aspectRatio();
         });
 
         //save image
-        $image->save(public_path().'/images'.$fileName);
+        $image->save(public_path().'/'.$file_path);
 
         //path
-        $path = '/photos/'. $fileName;
+        $path = 'images/'.$file_path;
 
-        //add record
-        $photo = new Photo();
-        $photo->path = 'images/' . $fileName;
-        $photo->save();
-        return redirect('/photos/')->with('status', 'ファイルのアップロード完了');
-
-
+        return View('images.complete')->with('path', $file_path);
     }
 
     /**

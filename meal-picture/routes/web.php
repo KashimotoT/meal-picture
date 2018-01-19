@@ -14,4 +14,4 @@
 // Route::get('/', 'welcome');
 
 //画像投稿ページ
-Route::resource('photos', 'PhotosController');
+Route::resource('upload_images', 'PhotosController');
