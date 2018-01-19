@@ -12,10 +12,10 @@ class ImagesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    // public function index()
-    // {
-    //     //
-    // }
+    public function index()
+    {
+        //
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -56,9 +56,9 @@ class ImagesController extends Controller
         $image->save(public_path().'/'.$file_path);
 
         //path
-        $path = 'images/'.$file_path;
+        $path = '/'.$file_path;
 
-        return View('images.complete')->with('path', $file_path);
+        return View('images.complete')->with('path', $path);
     }
 
     /**
